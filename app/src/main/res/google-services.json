@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "308573214945",
+    "firebase_url": "https://akuvoindia.firebaseio.com",
+    "project_id": "akuvoindia",
+    "storage_bucket": "akuvoindia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308573214945:android:99f8579c4e28347e",
+        "android_client_info": {
+          "package_name": "com.example.root.akuvo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308573214945-ls8uf3p5mejhja33lk0mhiap60h8qm48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU7ZjMbFp5G1shYGJfETLW_v0Ogtg-YsQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
