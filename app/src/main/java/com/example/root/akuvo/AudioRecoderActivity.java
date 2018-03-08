@@ -64,6 +64,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
         bufferSize = AudioRecord.getMinBufferSize(8000,
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
                 AudioFormat.ENCODING_PCM_16BIT);
+        //some changes
 
         start.setVisibility(View.INVISIBLE);
         stop.setVisibility(View.INVISIBLE);
