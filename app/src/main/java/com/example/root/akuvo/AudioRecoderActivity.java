@@ -3,6 +3,7 @@ package com.example.root.akuvo;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -116,6 +117,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
                     OutputStreamWriter RecordWriter = new OutputStreamWriter(AudioRecord);
                     RecordWriter.write(SoundFileName+AUDIO_RECORDER_FILE_EXT_WAV+"\n");
                     RecordWriter.close();
+                    AudioRecord.close();
                 } catch (Exception e) {
                     Toast.makeText(AudioRecoderActivity.this,SoundFileName+" Recorded SucesssFully.",Toast.LENGTH_LONG).show();
                 }
@@ -220,6 +222,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
         }
 
         copyWaveFile(getTempFilename(),getFilename());
+        startActivity(new Intent(AudioRecoderActivity.this,AudioScannerActivity.class));
     }
     private void copyWaveFile(String inFilename,String outFilename){
         FileInputStream in = null;

@@ -2,6 +2,7 @@ package com.example.root.akuvo;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -12,7 +13,10 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.musicg.fingerprint.FingerprintSimilarity;
 import com.musicg.wave.Wave;
@@ -49,6 +53,11 @@ public class AudioScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_scanner);
+
+        // Adding Toolbar
+
+        android.support.v7.widget.Toolbar OptionToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.scanner_toolbar);
+        setSupportActionBar(OptionToolbar);
 
         bufferSize = AudioRecord.getMinBufferSize(8000,
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
@@ -189,9 +198,10 @@ public class AudioScannerActivity extends AppCompatActivity {
         //Wave w1 = new Wave(getResources().openRawResource(R.raw.sound1));
         String str;
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput("RecordList.txt")));
+            FileInputStream RecordListFile=openFileInput("RecordList.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(RecordListFile));
             while((str=br.readLine())!=null){
-                Log.i("File Content",str);
+                Log.i("File Content :",str);
                 String InternalFileName;
                 String filepath = Environment.getExternalStorageDirectory().getPath();
                 File TempFile = new File(filepath,AUDIO_SAVED_FOLDER);
@@ -217,6 +227,7 @@ public class AudioScannerActivity extends AppCompatActivity {
                 }
                 Toast.makeText(AudioScannerActivity.this,"Similarity "+str+" : "+sim,Toast.LENGTH_LONG).show();
             }
+            RecordListFile.close();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -321,7 +332,26 @@ public class AudioScannerActivity extends AppCompatActivity {
     public void onBackPressed() {
         Toast.makeText(AudioScannerActivity.this,"Scanner Fuction Stoped ",Toast.LENGTH_LONG).show();
         handler.removeCallbacks(runnableCode);
-        stopRecording();
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.audio_scanner_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(AudioScannerActivity.this,"Scanner Fuction Stoped ",Toast.LENGTH_LONG).show();
+        handler.removeCallbacks(runnableCode);
+        stopRecording();
+        if(item.getItemId()==R.id.create_new_sound){
+            startActivity(new Intent(AudioScannerActivity.this,AudioRecoderActivity.class));
+        }
+        else if(item.getItemId()==R.id.delete_sound){
+            startActivity(new Intent(AudioScannerActivity.this,RecordedAudioListActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
