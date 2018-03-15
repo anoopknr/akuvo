@@ -63,16 +63,13 @@ public class AudioScannerActivity extends AppCompatActivity {
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
                 AudioFormat.ENCODING_PCM_16BIT);
 
-        // Create the Handler object (on the main thread by default)
+        // Handler object for Repeated recall of scanner function
          handler = new Handler();
-        // Define the code block to be executed
+        // runnableCode containts code to be recalled on specific interval
              runnableCode = new Runnable() {
             @Override
             public void run() {
-                // Do something here on the main thread
                 Log.d("Handlers", "Called on main thread");
-                // Repeat this the same runnable code block again another 2 seconds
-                // 'this' is referencing the Runnable object
                 if(Mode){
                     currentTime = System.currentTimeMillis();
                     startRecording();
@@ -90,7 +87,7 @@ public class AudioScannerActivity extends AppCompatActivity {
         handler.post(runnableCode);
 
     }
-
+    // Creating Folder and file to check match
     private String getFilename(){
         String filepath = Environment.getExternalStorageDirectory().getPath();
         File file = new File(filepath,AUDIO_RECORDER_FOLDER);
@@ -117,7 +114,7 @@ public class AudioScannerActivity extends AppCompatActivity {
 
         return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_TEMP_FILE);
     }
-
+    // Recording function
     private void startRecording(){
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
                 RECORDER_SAMPLERATE, RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING, bufferSize);
@@ -195,9 +192,9 @@ public class AudioScannerActivity extends AppCompatActivity {
         File file = new File(s);
         Wave w1 = new Wave(s);
         Wave w2;
-        //Wave w1 = new Wave(getResources().openRawResource(R.raw.sound1));
         String str;
         try {
+            // Reading Prerecorded audio list from RecordList.txt.
             FileInputStream RecordListFile=openFileInput("RecordList.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(RecordListFile));
             while((str=br.readLine())!=null){
@@ -207,11 +204,13 @@ public class AudioScannerActivity extends AppCompatActivity {
                 File TempFile = new File(filepath,AUDIO_SAVED_FOLDER);
                  InternalFileName =TempFile.getAbsolutePath() + "/" +str;
                  w2= new Wave(InternalFileName);
+                 // Finding Audio Fingerprint Similarity
                 FingerprintSimilarity fps = w1.getFingerprintSimilarity(w2);
                 float score = fps.getScore();
                 float sim = fps.getSimilarity();
 
                 if(sim>0.3) {
+                    // Building Notification
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.ic_stat_name)
                             .setContentTitle("Alert")

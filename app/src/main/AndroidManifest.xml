@@ -37,12 +37,15 @@
         <activity
             android:name=".AudioScannerActivity"
             android:label="Scanning Mode"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".AudioRecoderActivity" />
-        <activity android:name=".RecordedAudioListActivity"
+        <activity
+            android:name=".RecordedAudioListActivity"
             android:label="Recorded List"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".AboutActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
