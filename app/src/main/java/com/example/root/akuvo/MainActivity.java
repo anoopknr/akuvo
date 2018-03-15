@@ -24,7 +24,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,43 +35,54 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tv,tv3;
-    ImageButton im,im2;
-    Button b1,b2,b3,b4;
-    SpeechRecognizer sr;
-    Intent srint;
-    MultiAutoCompleteTextView tv2;
-    TextToSpeech tts;
-    ConversationService service;
+    TextView textToSpeechResultField,automatedResponseResultField;
+    ImageButton speechToTextButton,textToSpeechButton;
+    Button clearButton,copyButton,callButton,scanButton;
+    SpeechRecognizer speechRecognizer;
+    Intent speechRecognizerIntent;
+    MultiAutoCompleteTextView toSpeakField;
+    TextToSpeech textToSpeech;
+    ConversationService watsonConversationService;
+    String userName,userEmailID,userBloodGroup,userDateOfBirth;
     private final int REQ_CODE_SPEECH_INPUT = 100;
-    String workspace_id,conversation_username,conversation_password,str;
-    String Uname,Uemail,UBloodGroup,UDate;
+    /*
+           IBM Watson Conversation Credentials
+     */
+    private static final String WATSON_CONVERSATION_USERNAME = "d0311543-0b7d-47d3-8563-cb5d8c2b28c5";
+    private static final String WATSON_CONVERSATION_PASSWORD= "R71H3Oluaunl";
+    private static final String WATSON_WORKSPACE_ID= "669cc349-1dba-4aea-8d1b-ca78431f50ed";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        /*
+                Connecting to lawout elements
+         */
+        textToSpeechResultField=(TextView) findViewById(R.id.textToSpeechResultField);
+        automatedResponseResultField=(TextView) findViewById(R.id.automatedResponseResultField);
+        speechToTextButton=(ImageButton) findViewById(R.id.speechToTextButton);
+        textToSpeechButton=(ImageButton) findViewById(R.id.textToSpeechButton);
+        clearButton=(Button) findViewById(R.id.clearButton);
+        copyButton=(Button) findViewById(R.id.copyButton);
+        callButton=(Button) findViewById(R.id.callButton);
+        scanButton=(Button) findViewById(R.id.scanButton);
+        toSpeakField=(MultiAutoCompleteTextView)findViewById(R.id.toSpeakField);
 
-        tv=(TextView) findViewById(R.id.tv);
-        tv3=(TextView) findViewById(R.id.tv3);
-        im=(ImageButton) findViewById(R.id.im);
-        im2=(ImageButton) findViewById(R.id.im2);
-        b1=(Button) findViewById(R.id.b1);
-        b2=(Button) findViewById(R.id.b2);
-        b3=(Button) findViewById(R.id.b3);
-        b4=(Button) findViewById(R.id.b4);
-        tv2=(MultiAutoCompleteTextView)findViewById(R.id.tv2);
-
+        /*
+         Checking for UserDetails.txt which contains Username and other Details for Automated Response System
+         */
         File file = new File(getApplicationContext().getFilesDir(),"UserDetails.dat");
         if(file.exists()){
             try{
                 FileInputStream fis = openFileInput("UserDetails.dat");
                 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-                Uname = br.readLine();
-                UDate = br.readLine();
-                UBloodGroup=br.readLine();
-                Uemail=br.readLine();
+                userName = br.readLine();
+                userDateOfBirth = br.readLine();
+                userBloodGroup=br.readLine();
+                userEmailID=br.readLine();
 
             }catch (Exception e)
             {
@@ -89,21 +99,21 @@ public class MainActivity extends AppCompatActivity {
         /*
                 Connnection to IBM  Watson Conversation Service
          */
-        service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
-        service.setUsernameAndPassword("d0311543-0b7d-47d3-8563-cb5d8c2b28c5", "R71H3Oluaunl");
+        watsonConversationService = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
+        watsonConversationService.setUsernameAndPassword(WATSON_CONVERSATION_USERNAME,WATSON_CONVERSATION_PASSWORD);
 
         /*
                 Speech Recognition Class
          */
-        sr=SpeechRecognizer.createSpeechRecognizer(this);
-        srint = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        srint.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+        speechRecognizer=SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        srint.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        srint.putExtra(RecognizerIntent.EXTRA_PROMPT,"Akuvo");
-        srint.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Akuvo");
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
 
-        sr.setRecognitionListener(new RecognitionListener() {
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle bundle) {
 
@@ -151,51 +161,75 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        /*
+        Setting Up text to speech Language Locale.getDefault() can be repalced by preffered Language .
+         */
+        textToSpeech=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    tts.setLanguage(Locale.getDefault());
+                    textToSpeech.setLanguage(Locale.getDefault());
                 }
             }
         });
-        im.setOnClickListener(new View.OnClickListener() {
+
+        /*
+                Speech to Text Activation Button. Activates Google SpeechToText Feature.
+         */
+        speechToTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 promptSpeechInput();
             }
         });
-        im2.setOnClickListener(new View.OnClickListener() {
+        /*
+                Text To Speech  Convertion Button. Speaks out contents of toSpeak field.
+         */
+        textToSpeechButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String toSpeak = tv2.getText().toString();
-                tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                String toSpeak = toSpeakField.getText().toString();
+                textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
-        b1.setOnClickListener(new View.OnClickListener() {
+        /*
+                Reset Button to clear all fields
+         */
+        clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tv.setText("");
-                tv2.setText("");
-                tv3.setText("");
+                textToSpeechResultField.setText("");
+                toSpeakField.setText("");
+                automatedResponseResultField.setText("");
             }
         });
-        b2.setOnClickListener(new View.OnClickListener() {
+        /*
+                Copy Button
+                copies all contents of automatedResponse field to toSpeak Field;
+         */
+        copyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tv2.setText(tv3.getText());
-                tv3.setText("");
+                toSpeakField.setText(automatedResponseResultField.getText());
+                automatedResponseResultField.setText("");
             }
         });
-        b3.setOnClickListener(new View.OnClickListener() {
+        /*
+                 Call Button
+                 used for remote communication.
+         */
+        callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //startActivity(new Intent(MainActivity.this,AudioRecoderActivity.class));;
                 startActivity(new Intent(MainActivity.this,RecordedAudioListActivity.class));
             }
         });
-        b4.setOnClickListener(new View.OnClickListener() {
+        /*
+                  Scan Button
+                  used for audio scanning and matching with prerecorded sounds.
+         */
+        scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,AudioScannerActivity.class));
@@ -205,10 +239,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void promptSpeechInput() {
         try {
-            startActivityForResult(srint, REQ_CODE_SPEECH_INPUT);
+            startActivityForResult(speechRecognizerIntent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(getApplicationContext(),
-                    "Not Supportted",
+                    "Not Supported",
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -224,11 +258,11 @@ public class MainActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                             String SpeechResult=result.get(0);
 
-                            tv.setText(SpeechResult);
+                            textToSpeechResultField.setText(SpeechResult);
 
                     try {
                         String WatsonResponse = new FindRespose().execute(SpeechResult).get();
-                        tv3.setText(WatsonResponse);
+                        automatedResponseResultField.setText(WatsonResponse);
                     }catch (Exception e) {
                     }
                 }
@@ -237,6 +271,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    /*
+           Communcation with IBM Watson Conversation Service.
+           Uses AsyncTask due to mainactivity can't access internet directly
+     */
     private class FindRespose extends AsyncTask<String, Void, String> {
 
         @Override
@@ -250,17 +288,17 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject ResposeJSON;
 
-                MessageResponse response = service.message("669cc349-1dba-4aea-8d1b-ca78431f50ed", newMessage).execute();
+                MessageResponse response = watsonConversationService.message(WATSON_WORKSPACE_ID, newMessage).execute();
                 Log.i("test",response.toString());
                 ResposeJSON = new JSONObject(response.toString());
                 JSONObject WatsonOutput=ResposeJSON.getJSONObject("output");
                 ResponseStr=WatsonOutput.getString("text");
+                // Removing [""] from JSON Object from Watson
                 ResponseStr=ResponseStr.replaceAll("\"","").replaceAll("\\[", "").replaceAll("\\]","");
-                ResponseStr = ResponseStr.replaceAll("UNAME",Uname).replaceAll("UDOB",UDate).replaceAll("UBLOOD",UBloodGroup).replaceAll("UEMAIL",Uemail);
+                // Customizing Automated response specialized for each user.
+                ResponseStr = ResponseStr.replaceAll("UNAME",userName).replaceAll("UDOB",userDateOfBirth).replaceAll("UBLOOD",userBloodGroup).replaceAll("UEMAIL",userEmailID);
             } catch (Exception e) {
                 e.printStackTrace();
-                //Toast NetError=Toast.makeText(getApplicationContext(),"Network Error !",Toast.LENGTH_SHORT);
-               // NetError.show();
             }
 
             return ResponseStr;
@@ -269,10 +307,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-
-             // txt.setText(result);
-            // might want to change "executed" for the returned string passed
-            // into onPostExecute() but that is upto you
         }
 
         @Override

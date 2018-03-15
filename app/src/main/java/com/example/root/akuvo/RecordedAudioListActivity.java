@@ -40,13 +40,16 @@ public class RecordedAudioListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorded_audio_list);
-
+        /*
+            Uses ListView to update contents dynamically.
+         */
         RecordList = (ListView) findViewById(R.id.record_list_view);
         FileInputStream RecordListFile = null;
         try {
             RecordListFile = openFileInput("RecordList.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(RecordListFile));
             String FileContent="",TempString;
+            // Reading the RecordList File to get Audio files
             while ((TempString= br.readLine())!=null){
                 if(FileContent=="") {
                     FileContent = TempString;
@@ -127,7 +130,7 @@ public class RecordedAudioListActivity extends AppCompatActivity {
             }
         });
     }
-
+    // BackButton Action
     @Override
     public void onBackPressed() {
         startActivity(new Intent(RecordedAudioListActivity.this,MainActivity.class));

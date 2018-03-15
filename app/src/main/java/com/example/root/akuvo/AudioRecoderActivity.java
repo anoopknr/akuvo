@@ -35,11 +35,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Date;
 
+/*
+    Most functiocns in this file is similar to AudioScannerActivity.java
+   refer AudioScannerActivity.java file more details.
+ */
 public class AudioRecoderActivity extends AppCompatActivity {
 
     String SoundFileName;
     Button start,stop;
-    Boolean Mode=true;
     private static final int RECORDER_BPP = 16;
     private static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
     private static final String AUDIO_RECORDER_FOLDER = "Akuvo";
@@ -65,10 +68,14 @@ public class AudioRecoderActivity extends AppCompatActivity {
         bufferSize = AudioRecord.getMinBufferSize(8000,
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
                 AudioFormat.ENCODING_PCM_16BIT);
-        //some changes
 
+        // Both buttons are invisible at starting.
         start.setVisibility(View.INVISIBLE);
         stop.setVisibility(View.INVISIBLE);
+
+        /*
+                Dialog box to get the name of the file to record.
+         */
 
             // get audio_recoder_dialog.xml view
             LayoutInflater layoutInflater = LayoutInflater.from(AudioRecoderActivity.this);
@@ -97,7 +104,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
             alert.show();
 
 
-
+        // starting recording
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,12 +113,12 @@ public class AudioRecoderActivity extends AppCompatActivity {
                 startRecording();
             }
         });
+        // stoping recording
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stop.setVisibility(View.INVISIBLE);
                 stopRecording();
-               // Toast.makeText(AudioRecoderActivity.this,SoundFileName+" Recorded SucesssFully.",Toast.LENGTH_LONG).show();
                 try {
                     FileOutputStream AudioRecord=openFileOutput("RecordList.txt",MODE_APPEND);
                     OutputStreamWriter RecordWriter = new OutputStreamWriter(AudioRecord);
