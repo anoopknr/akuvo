@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.root.akuvo.UserDetailsActivity">
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/Name"
         android:layout_width="384dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/Email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="208dp"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.972" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/BloodGrp"
         android:layout_width="284dp"
         android:layout_height="26dp"
         android:layout_marginBottom="8dp"
@@ -75,53 +75,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.795" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="95dp"
-        android:layout_height="67dp"
+    <EditText
+        android:id="@+id/calender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="DD-MM-YYYY"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintVertical_bias="0.363"
+        tools:ignore="MissingConstraints" />
 
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="107dp"
-        android:layout_height="66dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286" />
-
-    <Spinner
-        android:id="@+id/spinner4"
-        android:layout_width="123dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.969"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287" />
-
-    <TextView
-        android:id="@+id/textView5"
+        <TextView
+        android:id="@+id/DateOfBirth"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginEnd="13dp"
@@ -130,6 +108,6 @@
         android:text="Enter the date of birth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/Name" />
 
 </android.support.constraint.ConstraintLayout>
