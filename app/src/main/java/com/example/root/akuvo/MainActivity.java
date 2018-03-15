@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //startActivity(new Intent(MainActivity.this,AudioRecoderActivity.class));;
-                startActivity(new Intent(MainActivity.this,RecordedAudioListActivity.class));
             }
         });
         /*

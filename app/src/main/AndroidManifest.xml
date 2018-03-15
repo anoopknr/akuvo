@@ -24,14 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CallActivity"
-            android:label="Call"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="Login"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".UserDetailsActivity"
             android:label="User Details" />
         <activity
