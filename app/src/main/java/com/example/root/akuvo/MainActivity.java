@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textToSpeechResultField,automatedResponseResultField;
     ImageButton speechToTextButton,textToSpeechButton;
-    Button clearButton,copyButton,callButton,scanButton;
+    Button clearButton,copyButton,hearingAidButton,scanButton;
     SpeechRecognizer speechRecognizer;
     Intent speechRecognizerIntent;
     MultiAutoCompleteTextView toSpeakField;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         textToSpeechButton=(ImageButton) findViewById(R.id.textToSpeechButton);
         clearButton=(Button) findViewById(R.id.clearButton);
         copyButton=(Button) findViewById(R.id.copyButton);
-        callButton=(Button) findViewById(R.id.callButton);
+        hearingAidButton=(Button) findViewById(R.id.hearingAidButton);
         scanButton=(Button) findViewById(R.id.scanButton);
         toSpeakField=(MultiAutoCompleteTextView)findViewById(R.id.toSpeakField);
 
@@ -215,13 +215,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         /*
-                 Call Button
-                 used for remote communication.
+                 Hearing Aid Button Button
+                 used for amplifiy audio from MIC
          */
-        callButton.setOnClickListener(new View.OnClickListener() {
+        hearingAidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(MainActivity.this,AudioRecoderActivity.class));;
+                startActivity(new Intent(MainActivity.this,MicToSpeakerActivity.class));;
             }
         });
         /*
