@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">akuvo</string>
     <string name="title_activity_login">loginActivity</string>
+    <string name="MicToSpeakerActivity">Hearing Aid</string>
+    <string name="RealtimeTextToSpeechActivity">RealTime Voice Translation</string>
+    <string name="AudioScannerActivity">Scanning Mode</string>
     <string-array name="blood_groups">
         <item>Nothing</item>
         <item>A+</item>

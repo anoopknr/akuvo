@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">ശ്രവണം</string>
+    <string name="MicToSpeakerActivity">ശ്രവണ സഹായി</string>
+    <string name="RealtimeTextToSpeechActivity">തത്സമയ ശബ്ദ പരിഭാഷ</string>
+    <string name="AudioScannerActivity">തിരയൽ മോഡ്</string>
 </resources>
