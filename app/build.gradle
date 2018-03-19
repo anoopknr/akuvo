@@ -22,36 +22,31 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.google.firebase:firebase-database:11.0.4'
-    implementation 'com.google.firebase:firebase-core:11.0.4'
-    implementation 'com.google.firebase:firebase-auth:11.0.4'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // For Watson Conversation Service
     compile 'com.ibm.watson.developer_cloud:conversation:3.8.0'
-    //compile 'com.google.apis:google-api-services-speech:v1-rev32-1.23.0'
-    //compile 'com.google.cloud:google-cloud-speech:0.32.0-alpha'
-    compile 'com.firebaseui:firebase-ui-database:0.4.4'
-    compile 'com.google.firebase:firebase-auth:11.0.4'
-    compile "com.android.support:recyclerview-v7:26.1.0"
 
-
-
+    // For GIF animation
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
+
+    // For Google Cloud Speech API
+    compile "io.grpc:grpc-okhttp:1.9.0"
+    compile "io.grpc:grpc-protobuf-lite:1.9.0"
+    compile "io.grpc:grpc-stub:1.9.0"
+    compile group: 'com.google.api.grpc', name: 'grpc-google-cloud-speech-v1', version: '0.1.13'
+    compile('com.google.auth:google-auth-library-oauth2-http:0.7.0') {
+        exclude module: 'httpclient'
+    }
+    // Using Butterknife for view injection in Android
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 apply plugin: 'com.google.gms.google-services'
