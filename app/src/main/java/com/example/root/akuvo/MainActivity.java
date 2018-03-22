@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,AudioScannerActivity.class));
+                startActivity(new Intent(MainActivity.this,RealtimeTextToSpeechActivity.class));
             }
         });
 
