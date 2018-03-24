@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/undo_text_translated"
+    <item
+        android:id="@+id/open_text_translated"
+        android:icon="@android:drawable/stat_notify_sdcard"
         android:orderInCategory="100"
+        android:title="open"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/clear_text_translated"
+        android:icon="@android:drawable/ic_delete"
+        android:orderInCategory="101"
+        android:title="Clear"
+        app:showAsAction="always" />
+    <item android:id="@+id/undo_text_translated"
+        android:orderInCategory="102"
         android:icon="@android:drawable/ic_menu_revert"
         android:title="Undo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/save_text_translated"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="103"
+        android:title="Save"
         app:showAsAction="always" />
 </menu>

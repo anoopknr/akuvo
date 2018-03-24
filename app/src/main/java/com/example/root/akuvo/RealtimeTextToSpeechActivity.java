@@ -2,17 +2,25 @@ package com.example.root.akuvo;
 
 
         import android.Manifest;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.PackageManager;
+        import android.net.Uri;
         import android.os.Bundle;
+        import android.os.Environment;
         import android.support.v4.app.ActivityCompat;
         import android.support.v4.content.ContextCompat;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.text.TextUtils;
         import android.text.method.ScrollingMovementMethod;
+        import android.view.LayoutInflater;
         import android.view.Menu;
         import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.EditText;
         import android.widget.TextView;
+
 
         import butterknife.BindView;
         import butterknife.ButterKnife;
@@ -21,6 +29,8 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
 
 
     private static final int RECORD_REQUEST_CODE = 101;
+    private String SAVE_FILE_NAME;
+    private static final String TEXT_SAVE_FOLDER = "Akuvo Text";
     @BindView(R.id.status)
     TextView status;
     @BindView(R.id.textMessage)
@@ -163,6 +173,38 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
             if(TEXTVIEW_HISTORY!=null){
                 covertedTextField.setText(covertedTextField.getText().toString().replace(TEXTVIEW_HISTORY,""));
             }
+        }else if(item.getItemId()==R.id.clear_text_translated){
+            covertedTextField.setText("");
+        }else if(item.getItemId()==R.id.save_text_translated){
+            // get translated_text_save_dialog.xml view
+            LayoutInflater layoutInflater = LayoutInflater.from(RealtimeTextToSpeechActivity.this);
+            View promptView = layoutInflater.inflate(R.layout.translated_text_save_dialog, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RealtimeTextToSpeechActivity.this);
+            alertDialogBuilder.setView(promptView);
+
+            final EditText editText = (EditText) promptView.findViewById(R.id.text_file_name);
+            // setup a dialog window
+            alertDialogBuilder.setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            SAVE_FILE_NAME = editText.getText().toString();
+
+                        }
+                    })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+            // create an alert dialog
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
+
+
+        }else if(item.getItemId()==R.id.open_text_translated){
+
         }
         return super.onOptionsItemSelected(item);
     }

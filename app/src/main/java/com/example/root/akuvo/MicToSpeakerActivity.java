@@ -16,7 +16,6 @@ import android.media.audiofx.AutomaticGainControl;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.NoiseSuppressor;
 import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,11 +24,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-;import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 
 
 public class MicToSpeakerActivity extends AppCompatActivity {
@@ -70,6 +64,8 @@ public class MicToSpeakerActivity extends AppCompatActivity {
         manager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
         manager.setMode(AudioManager.MODE_IN_COMMUNICATION);
 
+        /*
+
         //Check for headset availability
         AudioDeviceInfo[] audioDevices = manager.getDevices(AudioManager.GET_DEVICES_ALL);
         for(AudioDeviceInfo deviceInfo : audioDevices) {
@@ -104,7 +100,7 @@ public class MicToSpeakerActivity extends AppCompatActivity {
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
-
+*/
         initAudio();
 
         mOn.setOnClickListener(new View.OnClickListener() {
