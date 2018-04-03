@@ -31,6 +31,7 @@ dependencies {
     // For Watson Conversation Service
     compile 'com.ibm.watson.developer_cloud:conversation:3.8.0'
 
+
     // For GIF animation
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
 
@@ -47,6 +48,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'
