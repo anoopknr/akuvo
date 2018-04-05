@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/hearing_aid"
+            android:title="@string/MicToSpeakerActivity" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="?android:attr/actionModeWebSearchDrawable"
+            android:title="@string/AudioScannerActivity" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/speech_translation"
+            android:title="@string/RealtimeTextToSpeechActivity" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="@string/action_about" />
+    </group>
+</menu>

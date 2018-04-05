@@ -4,4 +4,5 @@
     <string name="MicToSpeakerActivity">ശ്രവണ സഹായി</string>
     <string name="RealtimeTextToSpeechActivity">തത്സമയ ശബ്ദ പരിഭാഷ</string>
     <string name="AudioScannerActivity">തിരയൽ മോഡ്</string>
+    <string name="action_about">" സംബന്ധിച്ച്"</string>
 </resources>

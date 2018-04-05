@@ -25,8 +25,8 @@
 
     <TextView
         android:id="@+id/aboutUs"
-        android:layout_width="241dp"
-        android:layout_height="214dp"
+        android:layout_width="246dp"
+        android:layout_height="256dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -35,25 +35,25 @@
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/versionAndDate"
-        android:layout_width="92dp"
-        android:layout_height="37dp"
+        android:layout_width="151dp"
+        android:layout_height="76dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintVertical_bias="0.797" />
 
     <Button
         android:id="@+id/okButton"
@@ -68,6 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintVertical_bias="0.93" />
 
 </android.support.constraint.ConstraintLayout>
