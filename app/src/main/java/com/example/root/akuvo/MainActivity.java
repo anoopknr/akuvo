@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     TextView textToSpeechResultField,automatedResponseResultField;
     ImageButton speechToTextButton,textToSpeechButton;
-    Button clearButton,copyButton,hearingAidButton,scanButton;
+    Button clearButton,copyButton;
     SpeechRecognizer speechRecognizer;
     Intent speechRecognizerIntent;
     MultiAutoCompleteTextView toSpeakField;
@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity
         textToSpeechButton=(ImageButton) findViewById(R.id.textToSpeechButton);
         clearButton=(Button) findViewById(R.id.clearButton);
         copyButton=(Button) findViewById(R.id.copyButton);
-        hearingAidButton=(Button) findViewById(R.id.hearingAidButton);
-        scanButton=(Button) findViewById(R.id.scanButton);
         toSpeakField=(MultiAutoCompleteTextView)findViewById(R.id.toSpeakField);
 
         /*
@@ -234,26 +232,6 @@ public class MainActivity extends AppCompatActivity
                 automatedResponseResultField.setText("");
             }
         });
-        /*
-                 Hearing Aid Button Button
-                 used for amplifiy audio from MIC
-         */
-        hearingAidButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,MicToSpeakerActivity.class));;
-            }
-        });
-        /*
-                  Scan Button
-                  used for audio scanning and matching with prerecorded sounds.
-         */
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,RealtimeTextToSpeechActivity.class));
-            }
-        });
 
     }
     private void promptSpeechInput() {
@@ -292,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(MainActivity.this,UserDetailsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -304,15 +282,26 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_hearing_aid) {
 
-        } else if (id == R.id.nav_slideshow) {
+            // Handle the hearing aid action
+            startActivity(new Intent(MainActivity.this,MicToSpeakerActivity.class));
+
+        } else if (id == R.id.nav_scaning_mode) {
+
+            // Handle the hearing scanning mode action
+            startActivity(new Intent(MainActivity.this,AudioScannerActivity.class));
+
+        } else if (id == R.id.nav_realtime_translation) {
+
+            // Handle the realtime speech translation action
+            startActivity(new Intent(MainActivity.this,RealtimeTextToSpeechActivity.class));
 
         } else if (id == R.id.nav_about) {
 
-            startActivity(new Intent(MainActivity.this,AboutActivity.class));;
+            // Handle the about action
+            startActivity(new Intent(MainActivity.this,AboutActivity.class));
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

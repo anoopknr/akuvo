@@ -5,15 +5,15 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_hearing_aid"
             android:icon="@drawable/hearing_aid"
             android:title="@string/MicToSpeakerActivity" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_scaning_mode"
             android:icon="?android:attr/actionModeWebSearchDrawable"
             android:title="@string/AudioScannerActivity" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_realtime_translation"
             android:icon="@drawable/speech_translation"
             android:title="@string/RealtimeTextToSpeechActivity" />
         <item

@@ -22,7 +22,7 @@ public class AboutActivity extends AppCompatActivity {
         /*
                 Edit aboutUs And versionAndDate Here
          */
-        aboutUsText="Developed By \n\n Anoop Varghese \n Anto Bose \n Aswin B Nair \n Athul Mathew Jacob \n\n\n Uses Librarys \n\n Music CG \n Google Cloud Speech API \n IBM Watson Conversation";
+        aboutUsText="Developed By \n\n Anoop Varghese \n Anto Bose \n Aswin B Nair \n Athul Jacob Mathew\n\n\n Uses Librarys \n\n Music CG \n Google Cloud Speech API \n IBM Watson Conversation";
         versionAndDateText="2018\n Version : 0.1";
 
         aboutUs.setText(aboutUsText);

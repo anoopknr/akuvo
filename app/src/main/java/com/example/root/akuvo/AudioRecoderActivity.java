@@ -35,6 +35,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import pl.droidsonroids.gif.GifImageView;
+
 /*
     Most functiocns in this file is similar to AudioScannerActivity.java
    refer AudioScannerActivity.java file more details.
@@ -56,6 +58,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
     private int bufferSize = 0;
     private Thread recordingThread = null;
     private boolean isRecording = false;
+    private GifImageView recordingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class AudioRecoderActivity extends AppCompatActivity {
 
         start=(Button) findViewById(R.id.start_recoding2);
         stop=(Button) findViewById(R.id.stop_recoding);
+
+        recordingAnimation=(GifImageView)findViewById(R.id.recoding_animation);
 
         bufferSize = AudioRecord.getMinBufferSize(8000,
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
@@ -96,6 +101,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
+                                    startActivity(new Intent(AudioRecoderActivity.this,AudioScannerActivity.class));
                                 }
                             });
 
@@ -110,6 +116,8 @@ public class AudioRecoderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 start.setVisibility(View.INVISIBLE);
                 stop.setVisibility(View.VISIBLE);
+                // Setting Recording animation.
+                recordingAnimation.setVisibility(View.VISIBLE);
                 startRecording();
             }
         });
