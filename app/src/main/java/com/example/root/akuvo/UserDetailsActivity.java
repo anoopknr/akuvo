@@ -21,13 +21,12 @@ public class UserDetailsActivity extends AppCompatActivity {
 
     EditText name,email;
     Button b_save;
-    TextView bloodgrp,dob;
-    EditText mDateEditText;
+    EditText dob;
     Calendar mCurrentDate;
-    Spinner spinner;
+    Spinner bloodGroupSelector,Preferred_Language;
     String DateOfBirth;
 
-    ArrayAdapter<CharSequence> adapter;
+    ArrayAdapter<CharSequence> adapter,langList;
     String fileName = "UserDetails.dat";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +34,43 @@ public class UserDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_details);
         name = (EditText) findViewById(R.id.Name);
         email = (EditText) findViewById(R.id.Email);
-        bloodgrp = (TextView) findViewById(R.id.BloodGrp);
-        dob = (TextView) findViewById(R.id.DateOfBirth);
-        spinner = (Spinner) findViewById(R.id.spinner);
+        dob = (EditText) findViewById(R.id.calender);
+        bloodGroupSelector = (Spinner) findViewById(R.id.bloodGroup);
+        Preferred_Language = (Spinner) findViewById(R.id.language);
 
-        b_save = (Button) findViewById(R.id.b_save);
-
+        /* Blood Group*/
         adapter = ArrayAdapter.createFromResource(this,R.array.blood_groups,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        mDateEditText = (EditText) findViewById(R.id.calender);
-        mDateEditText.setOnClickListener(new View.OnClickListener() {
+        bloodGroupSelector.setAdapter(adapter);
+
+        /* Language*/
+        langList = ArrayAdapter.createFromResource(this,R.array.preferred_language,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Preferred_Language.setAdapter(langList);
+
+        // save Button
+        b_save = (Button) findViewById(R.id.b_save);
+
+        /* Check for Passed Value From main Activity settings option*/
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            name.setText(extras.getString("currentUserName"));
+            email.setText(extras.getString("currentUserEmailId"));
+            dob.setText(extras.getString("currentUserDOB"));
+            // setting date to save default
+            DateOfBirth=extras.getString("currentUserDOB");
+
+            ArrayAdapter bloodGroupArrayAdapter = (ArrayAdapter) bloodGroupSelector.getAdapter(); //cast to an ArrayAdapter
+            int spinnerPosition = bloodGroupArrayAdapter.getPosition(extras.getString("currentUserBloodGroup"));
+            bloodGroupSelector.setSelection(spinnerPosition);
+
+            ArrayAdapter preferredLanguageArrayAdapter = (ArrayAdapter) Preferred_Language.getAdapter(); //cast to an ArrayAdapter
+            spinnerPosition =  preferredLanguageArrayAdapter.getPosition(extras.getString("currentUserPreferredLanguage"));
+            Preferred_Language.setSelection(spinnerPosition);
+
+        }
+        
+        dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCurrentDate = Calendar.getInstance();
@@ -56,7 +81,7 @@ public class UserDetailsActivity extends AppCompatActivity {
                 DatePickerDialog mDatePicker = new DatePickerDialog(UserDetailsActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
-                        mDateEditText.setText(selectedDay+"-"+selectedMonth+"-"+selectedYear);
+                        dob.setText(selectedDay+"-"+selectedMonth+"-"+selectedYear);
 
                         mCurrentDate.set(selectedYear,selectedMonth,selectedDay);
                     }
@@ -70,7 +95,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                saveFile(fileName, name.getText().toString()+"\n"+DateOfBirth+"\n"+spinner.getSelectedItem().toString()+"\n"+email.getText().toString());
+                saveFile(fileName, name.getText().toString()+"\n"+DateOfBirth+"\n"+bloodGroupSelector.getSelectedItem().toString()+"\n"+email.getText().toString()+"\n"+Preferred_Language.getSelectedItem().toString());
                 startActivity(new Intent(UserDetailsActivity.this,MainActivity.class));
             }
         });
@@ -81,7 +106,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             FileOutputStream fos=openFileOutput(file, Context.MODE_PRIVATE);
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(UserDetailsActivity.this, "saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserDetailsActivity.this, "Settings Saved", Toast.LENGTH_SHORT).show();
 
 
         }catch(Exception e)

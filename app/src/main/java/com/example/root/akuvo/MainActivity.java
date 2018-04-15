@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     MultiAutoCompleteTextView toSpeakField;
     TextToSpeech textToSpeech;
     ConversationService watsonConversationService;
-    String userName,userEmailID,userBloodGroup,userDateOfBirth;
+    String userName,userEmailID,userBloodGroup,userDateOfBirth,preferredLanguage;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     /*
            IBM Watson Conversation Credentials
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity
                 userDateOfBirth = br.readLine();
                 userBloodGroup=br.readLine();
                 userEmailID=br.readLine();
+                preferredLanguage=br.readLine();
 
             }catch (Exception e)
             {
@@ -261,6 +262,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // Settings Option
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -270,7 +272,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(MainActivity.this,UserDetailsActivity.class));
+            startActivity(new Intent(MainActivity.this,UserDetailsActivity.class).putExtra("currentUserName",userName).putExtra("currentUserEmailId",userEmailID).putExtra("currentUserDOB",userDateOfBirth).putExtra("currentUserBloodGroup",userBloodGroup).putExtra("currentUserPreferredLanguage",preferredLanguage));
         }
 
         return super.onOptionsItemSelected(item);
@@ -295,7 +297,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_realtime_translation) {
 
             // Handle the realtime speech translation action
-            startActivity(new Intent(MainActivity.this,RealtimeTextToSpeechActivity.class));
+            startActivity(new Intent(MainActivity.this,RealtimeTextToSpeechActivity.class).putExtra("langOption",preferredLanguage));
 
         } else if (id == R.id.nav_about) {
 

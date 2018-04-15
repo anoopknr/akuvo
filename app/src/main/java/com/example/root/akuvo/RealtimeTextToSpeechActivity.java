@@ -14,6 +14,7 @@ package com.example.root.akuvo;
         import android.support.v7.app.AppCompatActivity;
         import android.text.TextUtils;
         import android.text.method.ScrollingMovementMethod;
+        import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.Menu;
         import android.view.MenuItem;
@@ -31,6 +32,7 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
     private static final int RECORD_REQUEST_CODE = 101;
     private String SAVE_FILE_NAME;
     private static final String TEXT_SAVE_FOLDER = "Akuvo Text";
+    String Language,langCode;
     @BindView(R.id.status)
     TextView status;
     @BindView(R.id.textMessage)
@@ -94,7 +96,16 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realtime_text_to_speech);;
         ButterKnife.bind(this);
-        speechAPI = new SpeechAPI(RealtimeTextToSpeechActivity.this,"ml-IN");
+
+        // Getting value from PutExtra
+        Bundle extras = getIntent().getExtras();
+        Language=extras.getString("langOption");
+        langCode=getLangCode(Language);
+
+        Log.i(Language,langCode);
+
+
+        speechAPI = new SpeechAPI(RealtimeTextToSpeechActivity.this,langCode);
         covertedTextField = (TextView) findViewById(R.id.covertedTextField);
         covertedTextField.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -207,6 +218,18 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Get Language Code For Google Speech API
+    String getLangCode(String LangName){
+        Log.i("lang",LangName);
+        if(LangName.equals("മലയാളം"))
+            return "ml-IN";
+        else if(LangName.equals("English"))
+            return "en-IN";
+        else if(LangName.equals("தமிழ்"))
+            return "ta-IN";
+    return "en-IN";
     }
 
 }

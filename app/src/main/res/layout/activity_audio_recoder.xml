@@ -9,8 +9,8 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/recoding_animation"
-        android:layout_width="65dp"
-        android:layout_height="68dp"
+        android:layout_width="410dp"
+        android:layout_height="424dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

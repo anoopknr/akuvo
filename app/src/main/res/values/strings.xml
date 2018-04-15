@@ -5,95 +5,20 @@
     <string name="RealtimeTextToSpeechActivity">RealTime Voice Translation</string>
     <string name="AudioScannerActivity">Scanning Mode</string>
     <string-array name="blood_groups">
-        <item>Nothing</item>
-        <item>A+</item>
-        <item>B+</item>
-        <item>A-</item>
-        <item>B-</item>
-        <item>O+</item>
-        <item>O-</item>
-        <item>AB+</item>
-        <item>AB-</item>
+        <item>O positive</item>
+        <item>A positive</item>
+        <item>B positive</item>
+        <item>A negative</item>
+        <item>B negative</item>
+        <item>AB positive</item>
+        <item>AB negative</item>
     </string-array>
-    <string name="select_date">Select date</string>
-    <string-array name="date">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
-        <item>31</item>
+    <string-array name="preferred_language">
+        <item>English</item>
+        <item>മലയാളം</item>
+        <item>தமிழ்</item>
     </string-array>
 
-    <string name="select_month">Select date</string>
-    <string-array name="month">
-        <item>Jan</item>
-        <item>Feb</item>
-        <item>Mar</item>
-        <item>Apr</item>
-        <item>May</item>
-        <item>Jun</item>
-        <item>Jly</item>
-        <item>Aug</item>
-        <item>Sep</item>
-        <item>Oct</item>
-        <item>Nov</item>
-        <item>Dec</item>
-    </string-array>
-
-    <string name="select_year">Select date</string>
-    <string-array name="year">
-        <item>1950</item>
-        <item>1951</item>
-        <item>1952</item>
-        <item>1953</item>
-        <item>1954</item>
-        <item>1955</item>
-        <item>1956</item>
-        <item>1957</item>
-        <item>1958</item>
-        <item>1959</item>
-        <item>1960</item>
-        <item>1961</item>
-        <item>1962</item>
-        <item>1963</item>
-        <item>1964</item>
-        <item>1965</item>
-        <item>1966</item>
-        <item>1967</item>
-        <item>1968</item>
-        <item>1969</item>
-        <item>1970</item>
-        <item>1980</item>
-        <item>1990</item>
-        <item>2000</item>
-        <item>2010</item>
-    </string-array>
     <string name="title_activity_audio_recoder">Settings</string>
 
     <!-- Strings related to Settings -->
