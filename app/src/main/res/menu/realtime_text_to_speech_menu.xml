@@ -2,10 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/open_text_translated"
-        android:icon="@android:drawable/stat_notify_sdcard"
+        android:id="@+id/copy_text_translated"
+        android:icon="?android:attr/actionModeCopyDrawable"
         android:orderInCategory="100"
-        android:title="open"
+        android:title="copy"
         app:showAsAction="always" />
     <item
         android:id="@+id/clear_text_translated"

@@ -2,6 +2,9 @@ package com.example.root.akuvo;
 
 
         import android.Manifest;
+        import android.content.ClipData;
+        import android.content.ClipboardManager;
+        import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.PackageManager;
@@ -21,7 +24,12 @@ package com.example.root.akuvo;
         import android.view.View;
         import android.widget.EditText;
         import android.widget.TextView;
+        import android.widget.Toast;
 
+
+        import java.io.File;
+        import java.io.FileOutputStream;
+        import java.util.Random;
 
         import butterknife.BindView;
         import butterknife.ButterKnife;
@@ -32,6 +40,7 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
     private static final int RECORD_REQUEST_CODE = 101;
     private String SAVE_FILE_NAME;
     private static final String TEXT_SAVE_FOLDER = "Akuvo Text";
+    private static final String FILE_EXT=".txt";
     String Language,langCode;
     @BindView(R.id.status)
     TextView status;
@@ -196,9 +205,28 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
             final EditText editText = (EditText) promptView.findViewById(R.id.text_file_name);
             // setup a dialog window
             alertDialogBuilder.setCancelable(false)
+                    // Saving File with Converted Text
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             SAVE_FILE_NAME = editText.getText().toString();
+                            String filepath = Environment.getExternalStorageDirectory().getPath();
+                            File file = new File(filepath,TEXT_SAVE_FOLDER);
+
+                            if(!file.exists()){
+                                file.mkdirs();
+                            }
+                            File tempFile = new File(file.getAbsolutePath(),SAVE_FILE_NAME+FILE_EXT);
+
+                            // Handle Files with same name
+                            if(tempFile.exists()){
+                                int i=0;
+                                while(tempFile.exists()) {
+                                    i++;
+                                    tempFile = new File(file.getAbsolutePath(),SAVE_FILE_NAME+i+FILE_EXT);
+                                }
+                                SAVE_FILE_NAME+=i;
+                            }
+                            saveFile(file.getAbsolutePath() + "/" + SAVE_FILE_NAME+FILE_EXT,covertedTextField.getText().toString());
 
                         }
                     })
@@ -213,9 +241,13 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
 
-
-        }else if(item.getItemId()==R.id.open_text_translated){
-
+        // Copy to clip board
+        }else if(item.getItemId()==R.id.copy_text_translated){
+            String clipBoardData=covertedTextField.getText().toString();
+            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("text",clipBoardData);
+            clipboardManager.setPrimaryClip(clipData);
+            Toast.makeText(RealtimeTextToSpeechActivity.this,"Copied To Clip Board",Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -230,6 +262,24 @@ public class RealtimeTextToSpeechActivity extends AppCompatActivity {
         else if(LangName.equals("தமிழ்"))
             return "ta-IN";
     return "en-IN";
+    }
+
+    // Save File Function
+    public  void  saveFile(String file,String text)
+    {
+        try{
+            FileOutputStream fos= new FileOutputStream(file);
+            fos.write(text.getBytes());
+            fos.close();
+            File tmpFile = new File(file);
+            Toast.makeText(RealtimeTextToSpeechActivity.this, "Saved to "+tmpFile.getName(), Toast.LENGTH_SHORT).show();
+
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(RealtimeTextToSpeechActivity.this, "Error saving file!",Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

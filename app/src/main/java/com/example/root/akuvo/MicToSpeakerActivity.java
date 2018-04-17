@@ -64,7 +64,6 @@ public class MicToSpeakerActivity extends AppCompatActivity {
         manager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
         manager.setMode(AudioManager.MODE_IN_COMMUNICATION);
 
-        /*
 
         //Check for headset availability
         AudioDeviceInfo[] audioDevices = manager.getDevices(AudioManager.GET_DEVICES_ALL);
@@ -100,7 +99,6 @@ public class MicToSpeakerActivity extends AppCompatActivity {
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
-*/
         initAudio();
 
         mOn.setOnClickListener(new View.OnClickListener() {
