@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
-     <color name="colorOff">#ff0000</color>
-    <color name="colorOn">#009b19</color>
+     <color name="colorOff">#b32400</color>
+    <color name="colorOn">#006600</color>
     <color name="tempText">#FF4081</color>
 </resources>

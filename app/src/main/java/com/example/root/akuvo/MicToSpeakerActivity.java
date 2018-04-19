@@ -24,12 +24,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MicToSpeakerActivity extends AppCompatActivity {
 
     //Audio
-    private Button mOn;
+    private ImageButton mOn;
     private boolean isOn;
     private boolean isRecording;
     private AudioRecord record;
@@ -57,7 +58,7 @@ public class MicToSpeakerActivity extends AppCompatActivity {
         setVolumeControlStream(AudioManager.MODE_IN_COMMUNICATION);
 
 
-        mOn = (Button) findViewById(R.id.button);
+        mOn = (ImageButton) findViewById(R.id.button);
         isOn = false;
         isRecording = false;
 

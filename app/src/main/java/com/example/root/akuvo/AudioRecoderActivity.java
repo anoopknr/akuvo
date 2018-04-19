@@ -94,6 +94,23 @@ public class AudioRecoderActivity extends AppCompatActivity {
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             SoundFileName = editText.getText().toString();
+                            String filepath = Environment.getExternalStorageDirectory().getPath();
+                            File file = new File(filepath,AUDIO_RECORDER_FOLDER);
+
+                            if(!file.exists()){
+                                file.mkdirs();
+                            }
+                            File tempFile = new File(file.getAbsolutePath(),SoundFileName+AUDIO_RECORDER_FILE_EXT_WAV);
+
+                            // Handle Files with same name
+                            if(tempFile.exists()){
+                                int i=0;
+                                while(tempFile.exists()) {
+                                    i++;
+                                    tempFile = new File(file.getAbsolutePath(),SoundFileName+i+AUDIO_RECORDER_FILE_EXT_WAV);
+                                }
+                                SoundFileName+=i;
+                            }
                             start.setVisibility(View.VISIBLE);
                         }
                     })
@@ -237,7 +254,7 @@ public class AudioRecoderActivity extends AppCompatActivity {
         }
 
         copyWaveFile(getTempFilename(),getFilename());
-        startActivity(new Intent(AudioRecoderActivity.this,AudioScannerActivity.class));
+        startActivity(new Intent(AudioRecoderActivity.this,MainActivity.class));
     }
     private void copyWaveFile(String inFilename,String outFilename){
         FileInputStream in = null;
